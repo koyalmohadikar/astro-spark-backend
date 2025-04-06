@@ -3,31 +3,28 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     userType: {
         type: String,
-        required: true,
-        enum: ['admin', 'member', 'agent', 'staff', 'district user', 'guest', 'member user', "financer", "financer user"]
+        required: true
     },
     name: {
         type: String,
-        required: function () {
-            return ['admin', 'member', 'agent', 'staff', 'district user', 'member user', "financer", "financer user"].includes(this.userType)
-        }
+        required: true
     },
     email: {
         type: String,
-        required: function () {
-            return this.userType === "staff";
-        }
+        required: true
     },
     profile: {
         type: String,
         required: false,
         default: null,
     },
+    password: {
+        type: String,
+        required: false
+    },
     mobile: {
         type: String,
-        required: function () {
-            return ['admin', 'member', 'agent', 'staff', 'district user', 'guest', 'member user', "financer", "financer user"].includes(this.userType)
-        },
+        required: true,
         validate: {
             validator: function (value) {
                 // Use a regular expression to validate the phone number format
